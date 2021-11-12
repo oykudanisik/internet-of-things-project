@@ -1,0 +1,38 @@
+<%- include('header.ejs') %>
+
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">User Activity Details</h1>
+
+    <div class="card-body">
+      <table id="datatablesSimple">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Username</th>
+            <th>Date</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% for(let action of activity){ %>
+            <tr>
+              <td>
+                <%= action.username %>
+              </td>
+              <td>
+                <%= action.date %>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+      <a href="/useractivity">Back</a>
+    </div>
+   
+  </div>
+
+  <%- include('footer.ejs') %>

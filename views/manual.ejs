@@ -1,0 +1,41 @@
+<%- include('header.ejs') %>
+  <div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <div class="container-fluid px-4">
+      <h1 class="mt-4">Manual Mode</h1>
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card mb-4">
+            <div class="card-header">
+              Manual Mode
+            </div>
+            <div class="card-body">
+              <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label for="fanspeed" class="form-label">Fan Speed</label>
+      <input type="range" class="form-range" min="0" max="100" step="1" id="fanspeed" style="width:40%;">
+    </div>
+  </div>
+  <script>
+    var xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+          borderColor: "red",
+          fill: false
+        }]
+      },
+      options: {
+        legend: { display: false }
+      }
+    });
+    var x = document.getElementById("fanspeed").value
+  </script>
+  <%- include('footer.ejs') %>

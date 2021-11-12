@@ -1,0 +1,63 @@
+<%- include('header.ejs') %>
+
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">User Activity</h1>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card mb-4">
+          <div class="card-header">
+            Actvity Diagram
+          </div>
+          <div class="card-body">
+            <canvas height="40" id="activityChart" width="100%"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer.ejs') %>
+    <script>
+      var users = '<%- JSON.stringify(userActivity) %>';
+      var userObject = JSON.parse(users);
+      var userNameArray = [];
+      var userLoginCountArray = [];
+
+      //!!!!ARRAY SIZE!!!!!!!
+      for (let user of userObject) {
+        userNameArray.push(user._id);
+        userLoginCountArray.push(user.count);
+      }
+      const ctx = document.getElementById("activityChart").getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: userNameArray,
+          datasets: [{
+            label: 'Login Activity',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: userLoginCountArray,
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          },
+        },
+      });
+
+      document.getElementById("activityChart").onclick = function (e) {
+        var slice = myChart.getElementAtEvent(e);
+        if (!slice.length) return; // return if not clicked on slice
+        var label = slice[0]._model.label;
+        window.location.href = 'useractivitydetails?username=' + label;
+      }
+    </script>
+    </body>
+
+    </html>
